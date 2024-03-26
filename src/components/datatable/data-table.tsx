@@ -28,6 +28,8 @@ interface DataTableProps<TData, TValue> {
   rowCount: number
   pagination: PaginationState
   setPagination: React.Dispatch<React.SetStateAction<PaginationState>>
+  sorting: SortingState
+  setSorting: React.Dispatch<React.SetStateAction<SortingState>>
   isPlaceholderData?: boolean
 }
 
@@ -37,8 +39,9 @@ export function DataTable<TData, TValue>({
   rowCount,
   pagination,
   setPagination,
+  sorting,
+  setSorting,
 }: DataTableProps<TData, TValue>) {
-  const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] =
     useState<ColumnFiltersState>([])
 
@@ -49,8 +52,8 @@ export function DataTable<TData, TValue>({
     manualPagination: true,
     onPaginationChange: setPagination,
     rowCount: rowCount,
+    manualSorting: true,
     onSortingChange: setSorting,
-    getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     state: {

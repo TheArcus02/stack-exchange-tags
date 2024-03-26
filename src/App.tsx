@@ -2,17 +2,24 @@ import { useState } from 'react'
 import { columns } from './components/datatable/columns'
 import { DataTable } from './components/datatable/data-table'
 import { useGetTags } from './hooks/useTags'
-import { PaginationState } from '@tanstack/react-table'
+import { PaginationState, SortingState } from '@tanstack/react-table'
 
 function App() {
   const [pagination, setPagination] = useState<PaginationState>({
     pageIndex: 0,
     pageSize: 10,
   })
+  const [sorting, setSorting] = useState<SortingState>([
+    {
+      id: 'count',
+      desc: true,
+    },
+  ])
 
   const { data, isPlaceholderData } = useGetTags(
     pagination.pageIndex + 1,
     pagination.pageSize,
+    sorting[0],
   )
 
   return (
@@ -28,6 +35,8 @@ function App() {
           rowCount={data?.total || -1}
           pagination={pagination}
           setPagination={setPagination}
+          sorting={sorting}
+          setSorting={setSorting}
           isPlaceholderData={isPlaceholderData}
         />
       </div>
