@@ -6,20 +6,15 @@ import {
   ChevronsRightIcon,
 } from 'lucide-react'
 import { Button } from '../ui/button'
-import {
-  Select,
-  SelectTrigger,
-  SelectValue,
-  SelectContent,
-  SelectItem,
-} from '../ui/select'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>
+  isPlaceholderData?: boolean
 }
 
 export function DataTablePagination<TData>({
   table,
+  isPlaceholderData,
 }: DataTablePaginationProps<TData>) {
   return (
     <div className='flex items-center space-x-6 lg:space-x-8'>
@@ -59,7 +54,7 @@ export function DataTablePagination<TData>({
           variant='outline'
           className='hidden h-8 w-8 p-0 lg:flex'
           onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-          disabled={!table.getCanNextPage()}
+          disabled={isPlaceholderData || !table.getCanNextPage()}
         >
           <span className='sr-only'>Go to last page</span>
           <ChevronsRightIcon className='h-4 w-4' />

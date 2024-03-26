@@ -1,6 +1,7 @@
 import {
   ColumnDef,
   ColumnFiltersState,
+  PaginationState,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -17,20 +18,25 @@ import {
   TableBody,
   TableCell,
 } from '../ui/table'
-import { Button } from '../ui/button'
 import { useState } from 'react'
-import { Input } from '../ui/input'
 import { DataTableToolbar } from './data-table-toolbar'
 import { DataTablePagination } from './data-table-pagination'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
   data: TData[]
+  rowCount: number
+  pagination: PaginationState
+  setPagination: React.Dispatch<React.SetStateAction<PaginationState>>
+  isPlaceholderData?: boolean
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
+  rowCount,
+  pagination,
+  setPagination,
 }: DataTableProps<TData, TValue>) {
   const [sorting, setSorting] = useState<SortingState>([])
   const [columnFilters, setColumnFilters] =
@@ -40,12 +46,15 @@ export function DataTable<TData, TValue>({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination: true,
+    onPaginationChange: setPagination,
+    rowCount: rowCount,
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
     onColumnFiltersChange: setColumnFilters,
     getFilteredRowModel: getFilteredRowModel(),
     state: {
+      pagination,
       sorting,
       columnFilters,
     },

@@ -1,15 +1,10 @@
-import { useQuery } from '@tanstack/react-query'
-import axios from 'axios'
+import { fetchTags } from '@/lib/api/tags'
+import { keepPreviousData, useQuery } from '@tanstack/react-query'
 
-export const useGetTags = () => {
+export const useGetTags = (page?: number, perPage?: number) => {
   return useQuery<StackExchangeResponse>({
-    queryKey: ['tags'],
-    queryFn: async () => {
-      const { data } = await axios.get(
-        'https://api.stackexchange.com/2.3/tags?order=desc&sort=popular&site=stackoverflow',
-      )
-
-      return data
-    },
+    queryKey: ['tags', page, perPage],
+    queryFn: () => fetchTags(page, perPage),
+    placeholderData: keepPreviousData,
   })
 }
