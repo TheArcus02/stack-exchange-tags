@@ -14,4 +14,7 @@ export const columns: ColumnDef<Tag>[] = [
       return <DataTableColumnHeader column={column} title='Count' />
     },
   },
+  {
+    accessorKey: 'is_moderator_only',
+  },
 ]
