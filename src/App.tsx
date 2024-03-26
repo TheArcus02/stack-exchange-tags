@@ -1,3 +1,5 @@
+import { columns } from './components/datatable/columns'
+import { DataTable } from './components/datatable/data-table'
 import { useGetTags } from './hooks/useTags'
 
 function App() {
@@ -9,7 +11,9 @@ function App() {
         Stack Exchange Tags{' '}
         <span className='text-primary'>Datatable</span>
       </h1>
-      <div className='mt-16'>{JSON.stringify(data, null, 2)}</div>
+      <div className='mt-16'>
+        <DataTable columns={columns} data={data?.items || []} />
+      </div>
     </div>
   )
 }
