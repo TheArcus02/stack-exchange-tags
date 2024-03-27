@@ -1,8 +1,13 @@
 import { useState } from 'react'
 import { columns } from './components/datatable/columns'
 import { DataTable } from './components/datatable/data-table'
-import { useGetTags } from './hooks/useTags'
-import { PaginationState, SortingState } from '@tanstack/react-table'
+import { useGetTags } from './hooks/use-tags'
+import {
+  ColumnFiltersState,
+  PaginationState,
+  SortingState,
+} from '@tanstack/react-table'
+import { useDebounce } from './hooks/use-debounce'
 
 function App() {
   const [pagination, setPagination] = useState<PaginationState>({
@@ -16,10 +21,16 @@ function App() {
     },
   ])
 
+  const [columnFilters, setColumnFilters] =
+    useState<ColumnFiltersState>([])
+
+  const debouncedFilters = useDebounce(columnFilters, 500)
+
   const { data, isPlaceholderData } = useGetTags(
     pagination.pageIndex + 1,
     pagination.pageSize,
     sorting[0],
+    debouncedFilters[0]?.value as string | undefined,
   )
 
   return (
@@ -37,6 +48,8 @@ function App() {
           setPagination={setPagination}
           sorting={sorting}
           setSorting={setSorting}
+          columnFilters={columnFilters}
+          setColumnFilters={setColumnFilters}
           isPlaceholderData={isPlaceholderData}
         />
       </div>

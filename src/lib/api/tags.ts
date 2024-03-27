@@ -5,11 +5,12 @@ export const fetchTags = async (
   pageSize = 10,
   sortOrder = 'desc',
   sortLabel = 'popular',
+  filter = '',
 ) => {
   sortLabel = sortLabel === 'count' ? 'popular' : sortLabel
 
   const { data } = await axios.get(
-    `https://api.stackexchange.com/2.3/tags?page=${page}&pagesize=${pageSize}&order=${sortOrder}&sort=${sortLabel}&site=stackoverflow&filter=!nNPvSNVZBz`,
+    `https://api.stackexchange.com/2.3/tags?page=${page}&pagesize=${pageSize}&order=${sortOrder}&sort=${sortLabel}&inname=${filter}&site=stackoverflow&filter=!nNPvSNVZBz`,
   )
 
   return data

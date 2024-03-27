@@ -5,9 +5,6 @@ import {
   SortingState,
   flexRender,
   getCoreRowModel,
-  getFilteredRowModel,
-  getPaginationRowModel,
-  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import {
@@ -18,7 +15,6 @@ import {
   TableBody,
   TableCell,
 } from '../ui/table'
-import { useState } from 'react'
 import { DataTableToolbar } from './data-table-toolbar'
 import { DataTablePagination } from './data-table-pagination'
 
@@ -30,6 +26,10 @@ interface DataTableProps<TData, TValue> {
   setPagination: React.Dispatch<React.SetStateAction<PaginationState>>
   sorting: SortingState
   setSorting: React.Dispatch<React.SetStateAction<SortingState>>
+  columnFilters: ColumnFiltersState
+  setColumnFilters: React.Dispatch<
+    React.SetStateAction<ColumnFiltersState>
+  >
   isPlaceholderData?: boolean
 }
 
@@ -41,10 +41,10 @@ export function DataTable<TData, TValue>({
   setPagination,
   sorting,
   setSorting,
+  columnFilters,
+  setColumnFilters,
+  isPlaceholderData,
 }: DataTableProps<TData, TValue>) {
-  const [columnFilters, setColumnFilters] =
-    useState<ColumnFiltersState>([])
-
   const table = useReactTable({
     data,
     columns,
@@ -55,7 +55,7 @@ export function DataTable<TData, TValue>({
     manualSorting: true,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
-    getFilteredRowModel: getFilteredRowModel(),
+    manualFiltering: true,
     state: {
       pagination,
       sorting,
@@ -116,7 +116,10 @@ export function DataTable<TData, TValue>({
           </TableBody>
         </Table>
       </div>
-      <DataTablePagination table={table} />
+      <DataTablePagination
+        table={table}
+        isPlaceholderData={isPlaceholderData}
+      />
     </div>
   )
 }

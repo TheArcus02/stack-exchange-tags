@@ -6,11 +6,18 @@ export const useGetTags = (
   page?: number,
   perPage?: number,
   sort?: ColumnSort,
+  filter?: string,
 ) => {
   return useQuery<StackExchangeResponse>({
-    queryKey: ['tags', page, perPage, sort?.desc, sort?.id],
+    queryKey: ['tags', page, perPage, sort?.desc, sort?.id, filter],
     queryFn: () =>
-      fetchTags(page, perPage, sort?.desc ? 'desc' : 'asc', sort?.id),
+      fetchTags(
+        page,
+        perPage,
+        sort?.desc ? 'desc' : 'asc',
+        sort?.id,
+        filter,
+      ),
     placeholderData: keepPreviousData,
   })
 }
