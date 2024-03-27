@@ -8,7 +8,7 @@ import {
   ArrowUpDownIcon,
   ArrowUpIcon,
 } from 'lucide-react'
-import { Button } from '../ui/button'
+import { Button } from '../ui/button/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
