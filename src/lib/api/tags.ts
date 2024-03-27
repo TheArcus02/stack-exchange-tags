@@ -10,7 +10,7 @@ export const fetchTags = async (
   sortLabel = sortLabel === 'count' ? 'popular' : sortLabel
 
   try {
-    const { data } = await axios.get(
+    const { data } = await axios.get<StackExchangeResponse>(
       `https://api.stackexchange.com/2.3/tags?page=${page}&pagesize=${pageSize}&order=${sortOrder}&sort=${sortLabel}&inname=${filter}&site=stackoverflow&filter=!nNPvSNVZBz`,
     )
     return data

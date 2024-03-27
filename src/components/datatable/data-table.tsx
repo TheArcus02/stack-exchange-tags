@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -59,7 +61,7 @@ export function DataTable<TData, TValue>({
     getCoreRowModel: getCoreRowModel(),
     manualPagination: true,
     onPaginationChange: setPagination,
-    rowCount: rowCount,
+    rowCount,
     manualSorting: true,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -100,7 +102,7 @@ export function DataTable<TData, TValue>({
             {status === 'pending' ? (
               <TableRow>
                 <TableCell colSpan={columns.length} className='h-24'>
-                  <div className='flex justify-center items-center h-full'>
+                  <div className='flex h-full items-center justify-center'>
                     <BeatLoader color='#94A3B8' />
                   </div>
                 </TableCell>

@@ -1,10 +1,6 @@
-interface Tag {
-  has_synonyms: boolean
-  is_moderator_only: boolean
-  is_required: boolean
-  count: number
-  name: string
-  collectives?: Collective[]
+interface ExternalLink {
+  type: string
+  link: string
 }
 
 interface Collective {
@@ -16,11 +12,16 @@ interface Collective {
   slug: string
 }
 
-interface ExternalLink {
-  type: string
-  link: string
+interface Tag {
+  has_synonyms: boolean
+  is_moderator_only: boolean
+  is_required: boolean
+  count: number
+  name: string
+  collectives?: Collective[]
 }
 
+// eslint-disable-next-line no-unused-vars
 interface StackExchangeResponse {
   items: Tag[]
   has_more: boolean

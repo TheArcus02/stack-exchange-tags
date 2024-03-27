@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 import { Table } from '@tanstack/react-table'
 import { Input } from '../ui/input'
 import {

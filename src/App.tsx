@@ -1,3 +1,5 @@
+import * as React from 'react'
+
 import { useState } from 'react'
 import { columns } from './components/datatable/columns'
 import { DataTable } from './components/datatable/data-table'
@@ -35,7 +37,7 @@ function App() {
     )
 
   return (
-    <div className='flex flex-col items-center justify-center min-h-[100vh]'>
+    <div className='flex min-h-screen flex-col items-center justify-center'>
       <h1 className='text-3xl'>
         StackExchange Tags{' '}
         <span className='text-primary'>Datatable</span>
