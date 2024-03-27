@@ -17,6 +17,8 @@ import {
 } from '../ui/table'
 import { DataTableToolbar } from './data-table-toolbar'
 import { DataTablePagination } from './data-table-pagination'
+import { BarLoader, BeatLoader } from 'react-spinners'
+import { useRef } from 'react'
 
 interface DataTableProps<TData, TValue> {
   columns: ColumnDef<TData, TValue>[]
@@ -30,6 +32,9 @@ interface DataTableProps<TData, TValue> {
   setColumnFilters: React.Dispatch<
     React.SetStateAction<ColumnFiltersState>
   >
+  status?: 'error' | 'success' | 'pending'
+  error?: Error
+  isFetching: boolean
   isPlaceholderData?: boolean
 }
 
@@ -43,6 +48,9 @@ export function DataTable<TData, TValue>({
   setSorting,
   columnFilters,
   setColumnFilters,
+  status,
+  error,
+  isFetching,
   isPlaceholderData,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
@@ -63,11 +71,13 @@ export function DataTable<TData, TValue>({
     },
   })
 
+  const tableRef = useRef<HTMLTableElement>(null)
+
   return (
     <div className='space-y-4'>
       <DataTableToolbar table={table} />
       <div className='rounded-md border'>
-        <Table>
+        <Table ref={tableRef}>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
               <TableRow key={headerGroup.id}>
@@ -87,31 +97,66 @@ export function DataTable<TData, TValue>({
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && 'selected'}
-                >
-                  {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
-                      {flexRender(
-                        cell.column.columnDef.cell,
-                        cell.getContext(),
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
-            ) : (
+            {status === 'pending' ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className='h-24'>
+                  <div className='flex justify-center items-center h-full'>
+                    <BeatLoader color='#94A3B8' />
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : status === 'error' ? (
               <TableRow>
                 <TableCell
                   colSpan={columns.length}
-                  className='h-24 text-center'
+                  className='h-24 text-center text-muted-foreground'
                 >
-                  No results.
+                  Error fetching data.
+                  <p>{error?.message && ` ${error.message}`}</p>
                 </TableCell>
               </TableRow>
+            ) : (
+              <>
+                {isFetching && (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className='p-0'
+                    >
+                      <BarLoader
+                        width={tableRef.current?.offsetWidth || 0}
+                        color='#94A3B8'
+                      />
+                    </TableCell>
+                  </TableRow>
+                )}
+                {table.getRowModel().rows?.length ? (
+                  table.getRowModel().rows.map((row) => (
+                    <TableRow
+                      key={row.id}
+                      data-state={row.getIsSelected() && 'selected'}
+                    >
+                      {row.getVisibleCells().map((cell) => (
+                        <TableCell key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </TableCell>
+                      ))}
+                    </TableRow>
+                  ))
+                ) : (
+                  <TableRow>
+                    <TableCell
+                      colSpan={columns.length}
+                      className='h-24 text-center'
+                    >
+                      No results.
+                    </TableCell>
+                  </TableRow>
+                )}
+              </>
             )}
           </TableBody>
         </Table>

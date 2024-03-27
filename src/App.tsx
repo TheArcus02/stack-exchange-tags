@@ -26,12 +26,13 @@ function App() {
 
   const debouncedFilters = useDebounce(columnFilters, 500)
 
-  const { data, isPlaceholderData } = useGetTags(
-    pagination.pageIndex + 1,
-    pagination.pageSize,
-    sorting[0],
-    debouncedFilters[0]?.value as string | undefined,
-  )
+  const { data, isPlaceholderData, status, error, isFetching } =
+    useGetTags(
+      pagination.pageIndex + 1,
+      pagination.pageSize,
+      sorting[0],
+      debouncedFilters[0]?.value as string | undefined,
+    )
 
   return (
     <div className='flex flex-col items-center justify-center min-h-[100vh]'>
@@ -51,6 +52,9 @@ function App() {
           columnFilters={columnFilters}
           setColumnFilters={setColumnFilters}
           isPlaceholderData={isPlaceholderData}
+          status={status}
+          error={error || undefined}
+          isFetching={isFetching}
         />
       </div>
     </div>

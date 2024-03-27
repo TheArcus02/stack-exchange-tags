@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError } from 'axios'
 
 export const fetchTags = async (
   page = 1,
@@ -9,9 +9,26 @@ export const fetchTags = async (
 ) => {
   sortLabel = sortLabel === 'count' ? 'popular' : sortLabel
 
-  const { data } = await axios.get(
-    `https://api.stackexchange.com/2.3/tags?page=${page}&pagesize=${pageSize}&order=${sortOrder}&sort=${sortLabel}&inname=${filter}&site=stackoverflow&filter=!nNPvSNVZBz`,
-  )
-
-  return data
+  try {
+    const { data } = await axios.get(
+      `https://api.stackexchange.com/2.3/tags?page=${page}&pagesize=${pageSize}&order=${sortOrder}&sort=${sortLabel}&inname=${filter}&site=stackoverflow&filter=!nNPvSNVZBz`,
+    )
+    return data
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      console.log(error.response?.data)
+      throw new Error(
+        `[TAGS_ERROR]: ${error.response?.data.error_name} - ${error.response?.data.error_message}`,
+      )
+    } else if (error instanceof Error) {
+      console.log(error.message)
+      throw new Error(`[TAGS_ERROR]: ${error.message}`)
+    } else if (typeof error === 'string') {
+      console.log(error)
+      throw new Error(`[TAGS_ERROR]: ${error}`)
+    } else {
+      console.log(error)
+      throw new Error(`[TAGS_ERROR]: ${JSON.stringify(error)}`)
+    }
+  }
 }
