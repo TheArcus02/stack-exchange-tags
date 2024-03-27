@@ -8,13 +8,13 @@ import {
   ArrowUpDownIcon,
   ArrowUpIcon,
 } from 'lucide-react'
-import { Button } from '../ui/button/button'
+import { Button } from '../../ui/button/button'
 import {
   DropdownMenu,
   DropdownMenuTrigger,
   DropdownMenuContent,
   DropdownMenuItem,
-} from '../ui/dropdown-menu/dropdown-menu'
+} from '../../ui/dropdown-menu/dropdown-menu'
 
 interface DataTableColumnHeaderProps<TData, TValue>
   extends React.HTMLAttributes<HTMLDivElement> {

@@ -1,16 +1,16 @@
 import * as React from 'react'
 
 import { Table } from '@tanstack/react-table'
-import { Input } from '../ui/input/input'
+import { Input } from '../../ui/input/input'
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '../ui/select/select'
+} from '../../ui/select/select'
 
-interface DataTableToolbarProps<TData> {
+export interface DataTableToolbarProps<TData> {
   table: Table<TData>
 }
 
@@ -18,7 +18,7 @@ export function DataTableToolbar<TData>({
   table,
 }: DataTableToolbarProps<TData>) {
   return (
-    <div className='flex items-center justify-between'>
+    <div className='flex items-center justify-between space-x-4'>
       <div className='flex items-center space-x-2'>
         <Input
           placeholder='Filter tags...'

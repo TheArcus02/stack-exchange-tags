@@ -18,6 +18,7 @@ const meta = {
   args: {
     onChange: fn(),
     disabled: false,
+    placeholder: 'Type here...',
   },
 } satisfies Meta<typeof Input>
 

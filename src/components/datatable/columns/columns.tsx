@@ -1,7 +1,7 @@
 import * as React from 'react'
 
 import { ColumnDef } from '@tanstack/react-table'
-import { DataTableColumnHeader } from './data-table-column-header'
+import { DataTableColumnHeader } from '../data-table-column-header/data-table-column-header'
 
 export const columns: ColumnDef<Tag>[] = [
   {

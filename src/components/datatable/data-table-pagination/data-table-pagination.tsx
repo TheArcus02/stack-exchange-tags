@@ -7,7 +7,7 @@ import {
   ChevronsLeftIcon,
   ChevronsRightIcon,
 } from 'lucide-react'
-import { Button } from '../ui/button/button'
+import { Button } from '../../ui/button/button'
 
 interface DataTablePaginationProps<TData> {
   table: Table<TData>

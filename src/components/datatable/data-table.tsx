@@ -7,6 +7,9 @@ import {
   SortingState,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
+  getPaginationRowModel,
+  getSortedRowModel,
   useReactTable,
 } from '@tanstack/react-table'
 import {
@@ -17,8 +20,8 @@ import {
   TableBody,
   TableCell,
 } from '../ui/table/table'
-import { DataTableToolbar } from './data-table-toolbar'
-import { DataTablePagination } from './data-table-pagination'
+import { DataTableToolbar } from './data-table-toolbar/data-table-toolbar'
+import { DataTablePagination } from './data-table-pagination/data-table-pagination'
 import { BarLoader, BeatLoader } from 'react-spinners'
 import { useRef } from 'react'
 
@@ -36,8 +39,11 @@ interface DataTableProps<TData, TValue> {
   >
   status?: 'error' | 'success' | 'pending'
   error?: Error
-  isFetching: boolean
+  isFetching?: boolean
   isPlaceholderData?: boolean
+  manualPagination?: boolean
+  manualSorting?: boolean
+  manualFiltering?: boolean
 }
 
 export function DataTable<TData, TValue>({
@@ -54,18 +60,24 @@ export function DataTable<TData, TValue>({
   error,
   isFetching,
   isPlaceholderData,
+  manualPagination = true,
+  manualSorting = true,
+  manualFiltering = true,
 }: DataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
-    manualPagination: true,
+    getPaginationRowModel: getPaginationRowModel(),
+    manualPagination,
     onPaginationChange: setPagination,
     rowCount,
-    manualSorting: true,
+    getSortedRowModel: getSortedRowModel(),
+    manualSorting,
     onSortingChange: setSorting,
+    getFilteredRowModel: getFilteredRowModel(),
     onColumnFiltersChange: setColumnFilters,
-    manualFiltering: true,
+    manualFiltering,
     state: {
       pagination,
       sorting,
