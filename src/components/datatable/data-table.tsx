@@ -16,7 +16,7 @@ import {
   TableHead,
   TableBody,
   TableCell,
-} from '../ui/table'
+} from '../ui/table/table'
 import { DataTableToolbar } from './data-table-toolbar'
 import { DataTablePagination } from './data-table-pagination'
 import { BarLoader, BeatLoader } from 'react-spinners'

@@ -4,7 +4,7 @@ import { fn } from '@storybook/test'
 import { Button } from '@/components/ui/button/button'
 
 const meta = {
-  title: 'ui/Button',
+  title: 'components/ui/Button',
   component: Button,
   tags: ['autodocs'],
   parameters: {
@@ -29,6 +29,7 @@ const meta = {
   },
   args: {
     onClick: fn(),
+    disabled: false,
   },
 } satisfies Meta<typeof Button>
 

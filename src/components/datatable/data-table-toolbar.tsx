@@ -1,14 +1,14 @@
 import * as React from 'react'
 
 import { Table } from '@tanstack/react-table'
-import { Input } from '../ui/input'
+import { Input } from '../ui/input/input'
 import {
   Select,
   SelectTrigger,
   SelectValue,
   SelectContent,
   SelectItem,
-} from '../ui/select'
+} from '../ui/select/select'
 
 interface DataTableToolbarProps<TData> {
   table: Table<TData>
