@@ -49,7 +49,6 @@ const Template: Story = {
         {
           accessorKey: args.title || 'name',
           header: ({ column }) => {
-            console.log(column)
             return (
               <DataTableColumnHeader
                 column={column}

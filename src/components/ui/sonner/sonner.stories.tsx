@@ -40,7 +40,6 @@ const Template: Story = {
     },
   },
   render: function Render(args) {
-    console.log(args)
     return (
       <Button
         onClick={() =>
