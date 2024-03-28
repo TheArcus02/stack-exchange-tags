@@ -1,6 +1,7 @@
 import * as React from 'react'
 
 import { ThemeProvider } from '../src/providers/theme-provider'
+import { Toaster } from '../src/components/ui/sonner/sonner'
 import { Decorator } from '@storybook/react'
 
 export const withThemeProvider: Decorator = (Story) => {
@@ -11,4 +12,13 @@ export const withThemeProvider: Decorator = (Story) => {
   )
 }
 
-export const globalDecorators = [withThemeProvider]
+export const withToster: Decorator = (Story) => {
+  return (
+    <>
+      <Story />
+      <Toaster richColors closeButton />
+    </>
+  )
+}
+
+export const globalDecorators = [withThemeProvider, withToster]

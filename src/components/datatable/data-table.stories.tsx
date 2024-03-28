@@ -5,11 +5,7 @@ import {
   PaginationState,
   SortingState,
 } from '@tanstack/react-table'
-import {
-  MockUserType,
-  mockColumns,
-  mockUsers,
-} from '@/lib/mocks/datatable.mock'
+import { mockColumns, mockUsers } from '@/lib/mocks/datatable.mock'
 import { DataTable } from '@/components/datatable/data-table'
 import { useState } from 'react'
 

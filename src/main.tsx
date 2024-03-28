@@ -9,7 +9,7 @@ import {
   QueryClientProvider,
 } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
-import { Toaster } from './components/ui/sonner.tsx'
+import { Toaster } from './components/ui/sonner/sonner.tsx'
 import { toast } from 'sonner'
 
 const queryClient = new QueryClient({
